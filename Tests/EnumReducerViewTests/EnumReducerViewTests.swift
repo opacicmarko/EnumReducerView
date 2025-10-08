@@ -46,10 +46,6 @@ final class EnumReducerViewTests: XCTestCase {
             """
             import SwiftUI
 
-            protocol Feature: Sendable {
-                associatedtype FeatureView
-            }
-
             protocol Reducer: Sendable {
                 associatedtype State
                 associatedtype Action
@@ -63,9 +59,7 @@ final class EnumReducerViewTests: XCTestCase {
                 }
             }
 
-            struct TestFeature: Reducer, Feature {
-                typealias FeatureView = TestFeatureView
-
+            struct TestFeature: Reducer {
                 struct State {
                     var prop: Int = 0
                 }
@@ -77,8 +71,8 @@ final class EnumReducerViewTests: XCTestCase {
                 struct TestFeatureView {}
             }
 
-            struct DetailsFeature: Reducer, Feature {
-                struct FeatureView {
+            struct DetailsFeature: Reducer {
+                struct DetailsFeatureView {
                     let store: Store<State, Action>
                 }
 
@@ -107,10 +101,6 @@ final class EnumReducerViewTests: XCTestCase {
             expandedSource: """
             import SwiftUI
 
-            protocol Feature: Sendable {
-                associatedtype FeatureView
-            }
-
             protocol Reducer: Sendable {
                 associatedtype State
                 associatedtype Action
@@ -124,9 +114,7 @@ final class EnumReducerViewTests: XCTestCase {
                 }
             }
 
-            struct TestFeature: Reducer, Feature {
-                typealias FeatureView = TestFeatureView
-
+            struct TestFeature: Reducer {
                 struct State {
                     var prop: Int = 0
                 }
@@ -138,8 +126,8 @@ final class EnumReducerViewTests: XCTestCase {
                 struct TestFeatureView {}
             }
 
-            struct DetailsFeature: Reducer, Feature {
-                struct FeatureView {
+            struct DetailsFeature: Reducer {
+                struct DetailsFeatureView {
                     let store: Store<State, Action>
                 }
 
