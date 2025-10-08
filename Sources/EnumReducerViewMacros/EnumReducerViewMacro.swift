@@ -20,7 +20,6 @@ extension EnumReducerViewMacro: ExtensionMacro {
         let caseDecls = enumDecl.memberBlock.members.compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
         let caseElements = caseDecls.flatMap { $0.elements }
 
-
         let switchExpr = makeSwitchExpr(for: caseElements)
 
         let bodyDecl = try? VariableDeclSyntax("public var body: some SwiftUI.View") {
@@ -65,12 +64,13 @@ extension EnumReducerViewMacro: ExtensionMacro {
                 colon: .colonToken()
             )
 
-            if
-                let feature = element.parameterClause?.parameters.first?.type.as(IdentifierTypeSyntax.self)
-            {
+            if let feature = element.parameterClause?.parameters.first?.type.as(IdentifierTypeSyntax.self) {
                 let featureName = feature.name.text
                 let featureViewExpr = FunctionCallExprSyntax(
-                    callee: ExprSyntax(MemberAccessExprSyntax(base: ExprSyntax(stringLiteral: featureName), name: .identifier("FeatureView")))
+                    callee: ExprSyntax(
+                        MemberAccessExprSyntax(
+                            base: ExprSyntax(stringLiteral: featureName),
+                            name: .identifier("\(featureName + "View")")))
                 ) {
                     LabeledExprListSyntax {
                         LabeledExprSyntax(

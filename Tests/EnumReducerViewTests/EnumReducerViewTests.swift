@@ -172,7 +172,7 @@ final class EnumReducerViewTests: XCTestCase {
                         switch store.state {
                         case .details:
                             if let store = store.scope(state: \\.details, action: \\.details) {
-                                DetailsFeature.FeatureView(store: store)
+                                DetailsFeature.DetailsFeatureView(store: store)
                             }
                         }
                     }
