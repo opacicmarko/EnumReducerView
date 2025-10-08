@@ -28,8 +28,7 @@ final class EnumReducerViewTests: XCTestCase {
                 public struct View: SwiftUI.View {
                     let store: Store<State, Action>
                     public var body: some SwiftUI.View {
-                        switch store.state {
-                        }
+                        EmptyView()
                     }
                 }
             }

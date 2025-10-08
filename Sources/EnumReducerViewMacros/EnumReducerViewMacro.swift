@@ -20,10 +20,18 @@ extension EnumReducerViewMacro: ExtensionMacro {
         let caseDecls = enumDecl.memberBlock.members.compactMap { $0.decl.as(EnumCaseDeclSyntax.self) }
         let caseElements = caseDecls.flatMap { $0.elements }
 
-        let switchExpr = makeSwitchExpr(for: caseElements)
+        var bodyContent: CodeBlockItemSyntax.Item
+
+        if caseElements.isEmpty {
+            bodyContent = .expr(ExprSyntax(FunctionCallExprSyntax(callee: ExprSyntax("EmptyView"))))
+        } else {
+            let switchExpr = makeSwitchExpr(for: caseElements)
+
+            bodyContent = .expr(ExprSyntax(switchExpr))
+        }
 
         let bodyDecl = try? VariableDeclSyntax("public var body: some SwiftUI.View") {
-            CodeBlockItemSyntax(item: .expr(ExprSyntax(switchExpr)))
+            CodeBlockItemSyntax(item: bodyContent)
         }
 
         guard let bodyDecl else { return [] }
