@@ -20,6 +20,7 @@ struct Feature {
 
 To use the macro, apply it to the desired enum Reducer type together with the `@Reducer` macro.
 ```swift
+import SwiftUI
 import ComposableArchitecture
 import EnumReducerView
 
@@ -33,6 +34,7 @@ enum Home {
 
 The expansion in the example above results in the following code:
 ```swift
+import SwiftUI
 import ComposableArchitecture
 import EnumReducerView
 
